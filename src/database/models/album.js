@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-function createProductModel(connection) {
-  const Product = connection.define('Product', {
+function createAlbumModel(connection) {
+  const Album = connection.define('Album', {
     // Model attributes are defined here
     name: {
       type: DataTypes.STRING,
@@ -11,15 +11,15 @@ function createProductModel(connection) {
       type: DataTypes.TEXT
       // allowNull defaults to true
     },
-    price: {
-      type: DataTypes.DOUBLE
+    yearOfCreation: {
+      type: DataTypes.DATE
     }
   }, {
     // Other model options go here
   });
-  return Product;
+  return Album;
 }
 
 module.exports = {
-  createProductModel
+  createAlbumModel
 }
