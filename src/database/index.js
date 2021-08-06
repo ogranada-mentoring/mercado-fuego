@@ -32,27 +32,6 @@ async function connect(host, port, username, password, database) {
     await connection.authenticate();
     await connection.sync();
     console.log('Connection has been established successfully.');
-    /*
-    const u = new models.User({
-      firstName: 'Oscar', 
-      lastName: 'Granada', 
-      username: 'ogranada', 
-      password: 'jajajaja', 
-      email: 'ola@aol.co', 
-    })
-    await u.save();
-    u.password = 'Mimamamemima123*';
-    const v = await models.User.findOne({
-      where: {
-        username: 'ogranada'
-      }
-    })
-    await v.save();
-
-    await v.destroy();
-    const data = await models.User.findAll();
-    console.log(data);
-    */
    return true;
   } catch (error) {
     console.error('Unable to connect to the database:', error);
