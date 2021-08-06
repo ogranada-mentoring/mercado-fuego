@@ -25,7 +25,6 @@ async function main() {
         server.use('/api/v1/', createAlbumRouter());
         server.use('/api/v1/', createSongRouter());
         server.listen(PORT, () => {
-            // callback
             console.log('Server is running...');
         });
     } else {
