@@ -3,6 +3,7 @@ const { createUserModel } = require("./models/users");
 const { createBandModel } = require("./models/band");
 const { createAlbumModel } = require("./models/album");
 const { createSongModel } = require("./models/song");
+const { createAlbumSongModel } = require("./models/album_song");
 
 const models = {};
 
@@ -21,16 +22,19 @@ async function connect(host, port, username, password, database) {
   models.Band = createBandModel(connection);
   models.Album = createAlbumModel(connection);
   models.Song = createSongModel(connection);
+  models.AlbumSong = createAlbumSongModel(connection, models.Album, models.Song);
 
   models.Band.hasMany(models.Album);
   models.Album.belongsTo(models.Band);
 
-  models.Album.belongsToMany(models.Song, { through: 'AlbumSong' });
-  models.Song.belongsToMany(models.Album, { through: 'AlbumSong' });
+  models.Album.belongsToMany(models.Song, { through: models.AlbumSong });
+  models.Song.belongsToMany(models.Album, { through: models.AlbumSong });
   
   try {
     await connection.authenticate();
-    await connection.sync();
+    await connection.sync({
+      // alter: true
+    });
     console.log('Connection has been established successfully.');
    return true;
   } catch (error) {
