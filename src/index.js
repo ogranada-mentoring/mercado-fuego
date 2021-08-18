@@ -1,6 +1,7 @@
 const express = require('express');
 const { config } = require('dotenv');
-const { connect } = require('./database/index.js');
+const { connect } = require('./model/index.js');
+const { initialize } = require('./config/db.js');
 
 async function main() {
     config();
@@ -17,6 +18,7 @@ async function main() {
         DB_HOST,
     } = process.env;
     await connect(DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    initialize();
 
     server.listen(PORT, () => {
         // callback
