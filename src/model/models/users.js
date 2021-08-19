@@ -1,28 +1,28 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 function createUserModel(connection) {
   const User = connection.define('User', {
     // Model attributes are defined here
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastName: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
       // allowNull defaults to true
     },
     username: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     password: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
       // allowNull defaults to true
     },
     email: {
       type: DataTypes.STRING,
-      unique: true
-    }
+      unique: true,
+    },
   }, {
     // Other model options go here
   });
@@ -30,5 +30,5 @@ function createUserModel(connection) {
 }
 
 module.exports = {
-  createUserModel
-}
+  createUserModel,
+};

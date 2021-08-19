@@ -1,9 +1,9 @@
-const { getModel } = require("../model");
+const { getModel } = require('../model');
 
 async function initialize() {
   const User = getModel('User');
   const current = await User.findOne({
-    username: 'admin'
+    username: 'admin',
   });
   if (!current) {
     User.create({
@@ -16,5 +16,5 @@ async function initialize() {
 }
 
 module.exports = {
-  initialize
+  initialize,
 };
