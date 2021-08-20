@@ -1,6 +1,6 @@
-const Sequelize = require("sequelize");
-const { createProductModel } = require("./models/product");
-const { createUserModel } = require("./models/users");
+const Sequelize = require('sequelize');
+const { createPostModel } = require('./models/post');
+const { createUserModel } = require('./models/users');
 
 const models = {};
 
@@ -15,7 +15,7 @@ async function connect(host, port, username, password, database) {
     // logging: false
   });
   models.User = createUserModel(connection);
-  models.Product = createProductModel(connection);
+  models.Post = createPostModel(connection);
   try {
     await connection.authenticate();
     await connection.sync();
@@ -30,10 +30,10 @@ function getModel(name) {
     global.console.log('No existe');
     return null;
   }
-  return models[name]
+  return models[name];
 }
 
 module.exports = {
   connect,
-  getModel
+  getModel,
 };
