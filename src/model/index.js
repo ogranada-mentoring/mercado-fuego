@@ -1,6 +1,6 @@
-const Sequelize = require("sequelize");
-const { createProductModel } = require("./models/product");
-const { createUserModel } = require("./models/users");
+const Sequelize = require('sequelize');
+const { createProductModel } = require('./models/product');
+const { createUserModel } = require('./models/users');
 
 const models = {};
 
@@ -30,10 +30,10 @@ function getModel(name) {
     global.console.log('No existe');
     return null;
   }
-  return models[name]
+  return models[name];
 }
 
 module.exports = {
   connect,
-  getModel
+  getModel,
 };

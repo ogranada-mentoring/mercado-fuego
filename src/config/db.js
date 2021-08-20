@@ -3,7 +3,9 @@ const { getModel } = require('../model');
 async function initialize() {
   const User = getModel('User');
   const current = await User.findOne({
-    username: 'admin',
+    where: {
+      username: 'admin',
+    },
   });
   if (!current) {
     User.create({
