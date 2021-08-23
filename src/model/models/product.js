@@ -1,19 +1,19 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 function createProductModel(connection) {
   const Product = connection.define('Product', {
     // Model attributes are defined here
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
       // allowNull defaults to true
     },
     price: {
-      type: DataTypes.DOUBLE
-    }
+      type: DataTypes.DOUBLE,
+    },
   }, {
     // Other model options go here
   });
@@ -21,5 +21,5 @@ function createProductModel(connection) {
 }
 
 module.exports = {
-  createProductModel
-}
+  createProductModel,
+};

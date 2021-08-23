@@ -30,10 +30,10 @@ function getModel(name) {
     global.console.log('No existe');
     return null;
   }
-  return models[name]
+  return models[name];
 }
 
 module.exports = {
   connect,
-  getModel
+  getModel,
 };
