@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 
-function createUserModel(connection) {
+function createModel(connection) {
   const User = connection.define('User', {
     // Model attributes are defined here
     firstName: {
@@ -30,5 +30,5 @@ function createUserModel(connection) {
 }
 
 module.exports = {
-  createUserModel,
+  createModel,
 };

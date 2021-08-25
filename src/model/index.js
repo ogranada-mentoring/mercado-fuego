@@ -1,6 +1,7 @@
-const Sequelize = require("sequelize");
-const { createProductModel } = require("./models/product");
-const { createUserModel } = require("./models/users");
+const Sequelize = require('sequelize');
+const { createModel: createProductModel } = require('./models/product');
+const { createModel: createUserModel } = require('./models/users');
+const { createModel: createPostsModel } = require('./models/posts');
 
 const models = {};
 
@@ -16,6 +17,7 @@ async function connect(host, port, username, password, database) {
   });
   models.User = createUserModel(connection);
   models.Product = createProductModel(connection);
+  models.Post = createPostsModel(connection);
   try {
     await connection.authenticate();
     await connection.sync();

@@ -1,23 +1,22 @@
 const { DataTypes } = require('sequelize');
 
 function createModel(connection) {
-  const Product = connection.define('Product', {
+  const User = connection.define('Post', {
     // Model attributes are defined here
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      // allowNull defaults to true
+    summary: {
+      type: DataTypes.STRING,
     },
-    price: {
-      type: DataTypes.DOUBLE,
+    content: {
+      type: DataTypes.TEXT,
     },
   }, {
     // Other model options go here
   });
-  return Product;
+  return User;
 }
 
 module.exports = {
