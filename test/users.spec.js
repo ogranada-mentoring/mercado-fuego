@@ -19,7 +19,14 @@ describe('API users test', () => {
         return Promise.resolve(objetoFalso);
       },
     };
-    sinon.stub(database, 'getModel').returns(ModeloFalso);
+    // sinon.stub(database, 'getModel').returns(ModeloFalso);
+    sinon.stub(database, 'getModel').callsFake((name) => {
+      if (name === 'User') {
+        return ModeloFalso;
+      }
+      console.error(`Invalid model ${name}`);
+      return null;
+    });
   });
 
   // Tests
@@ -32,6 +39,7 @@ describe('API users test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) {
+          console.log(err);
           throw err;
         } else {
           expect(res.body.length).to.be.equal(1);

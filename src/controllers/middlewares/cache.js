@@ -1,10 +1,16 @@
 const redis = require('redis');
 
-const client = redis.createClient();
+let client = null;
 
-client.on('error', (error) => {
-  console.error(error);
-});
+function getRedisClient() {
+  if (!client) {
+    client = redis.createClient();
+    getRedisClient().on('error', (error) => {
+      console.error(error);
+    });
+  }
+  return client;
+}
 
 function makeKey(req) {
   return `${req.method}_${req.baseUrl}`;
@@ -12,14 +18,14 @@ function makeKey(req) {
 
 function storeObjectInCache(req, object) {
   const key = makeKey(req);
-  client.set(key, JSON.stringify(object));
+  getRedisClient().set(key, JSON.stringify(object));
 }
 
 function cache(req, res, next) {
   const key = makeKey(req);
   console.log(key);
   console.time('CACHE TIME');
-  client.get(key, (error, data) => {
+  getRedisClient().get(key, (error, data) => {
     console.timeEnd('CACHE TIME');
     if (error || !data) {
       next();
@@ -30,7 +36,7 @@ function cache(req, res, next) {
 }
 
 function invalidateCache(req) {
-  client.DEL(makeKey(req));
+  getRedisClient().DEL(makeKey(req));
 }
 
 module.exports = {

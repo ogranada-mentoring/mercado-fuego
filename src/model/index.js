@@ -19,6 +19,12 @@ async function connect(host, port, username, password, database) {
   models.Product = createProductModel(connection);
   models.Post = createPostsModel(connection);
   try {
+    throw new Error('This is a sample');
+  } catch (error) {
+    console.error(error);
+    process.exit(0);
+  }
+  try {
     await connection.authenticate();
     await connection.sync();
     console.log('Connection has been established successfully.');
