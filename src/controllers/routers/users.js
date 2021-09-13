@@ -5,7 +5,9 @@ function makeRouter() {
   const router = Router();
 
   router.get('/', async (req, res) => {
-    const User = db.getModel('User');
+    let User;
+    User = db.getModel('User');
+    User = db.getModel('User');
     const data = await User.findAll({});
     res.status(200).json(data);
   });

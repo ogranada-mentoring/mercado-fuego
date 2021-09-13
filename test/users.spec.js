@@ -15,9 +15,12 @@ describe('API users test', () => {
 
   beforeEach(() => {
     const ModeloFalso = {
+      /*
       findAll() {
         return Promise.resolve(objetoFalso);
       },
+      */
+      findAll: sinon.stub().resolves(objetoFalso),
     };
     // sinon.stub(database, 'getModel').returns(ModeloFalso);
     sinon.stub(database, 'getModel').callsFake((name) => {
@@ -35,13 +38,14 @@ describe('API users test', () => {
     request(server)
       .get('/api/v1/users')
       .expect('Content-Type', /json/)
-      .expect('Content-Length', '10')
+      // .expect('Content-Length', '10')
       .expect(200)
       .end((err, res) => {
         if (err) {
           console.log(err);
           throw err;
         } else {
+          expect(database.getModel.callCount).to.be.equal(1);
           expect(res.body.length).to.be.equal(1);
           expect(res.body[0]).to.has.key('id');
           done();
