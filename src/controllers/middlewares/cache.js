@@ -7,16 +7,13 @@ redis.on('error', (error) => {
 });
 
 function cache(req, res, next) {
-  const token = req.headers.authorization
-    ? req.headers.authorization.split(' ')[1]
-    : undefined;
-  const url = `${token}_${req.url}`;
+  const url = `${req.method}_${req.url}`;
   req.cache = (data) => {
     redis.set(url, JSON.stringify(data), () => {
       // res.send(data);
     });
   };
-  if (!token) {
+  if (!url) {
     next();
   } else {
     redis.get(url, (err, cached) => {
@@ -32,7 +29,7 @@ function cache(req, res, next) {
 }
 
 function cleanCache(req, res, next) {
-  const { url } = req;
+  const url = `GET_${req.url}`;
   redis.DEL(url);
   next();
 }
